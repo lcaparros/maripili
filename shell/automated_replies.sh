@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BOT_TELEGRAM_TOKEN="1842565926:AAHwS7j3WvO26JRGiqHcG1U9iUEkAnsgRsA"
-BOT_GIPHY_API_KEY="s1jYOseq17JoSgfz6dQ3BiLGLoibRbZT"
+BOT_TELEGRAM_TOKEN=""
+BOT_GIPHY_API_KEY=""
 
 base=$(dirname "$0")
 
@@ -26,13 +26,11 @@ fetchMessages() {
             echo "Message: ${t}"
             sendTelegramMessage "${chat_id}" "Así no funsiona esto kabesa"
         elif [[ $t == *"/gif"* ]]; then
-            echo "New Telegram Notification"
+            echo "New Gif sent"
             echo "Chat ID: ${chat_id}"
-            echo "Message: ${t}"
-            sendTelegramMessage "${chat_id}" "Casi te mando un gif..."
-            # search_term=$(echo $t | cut -d " " -f 2)
-            # gif=$(getGiphyGif "${search_term}" "${BOT_GIPHY_API_KEY}")
-            # sendTelegramMessage "${chat_id}" "${gif}"
+            search_term=$(echo $t | cut -d ' ' -f2-)
+            echo "Search term: ${t}"
+            sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-500 -n 1) "${search_term}")"
         elif echo $t | grep -iqF "chiquito"; then
             echo "New Reply Notification"
             echo "Chat ID: ${chat_id}"
