@@ -1,7 +1,7 @@
 #!/bin/bash
 
-BOT_TELEGRAM_TOKEN=""
-BOT_GIPHY_API_KEY=""
+BOT_TELEGRAM_TOKEN="1842565926:AAHwS7j3WvO26JRGiqHcG1U9iUEkAnsgRsA"
+BOT_GIPHY_API_KEY="s1jYOseq17JoSgfz6dQ3BiLGLoibRbZT"
 
 base=$(dirname "$0")
 
@@ -36,6 +36,11 @@ fetchMessages() {
             echo "Chat ID: ${chat_id}"
             echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/chiquito.txt | head -n $(shuf -i 1-49 -n 1) | tail -n 1)"
+        elif echo $t | grep -iqF "lopera"; then
+            echo "New Reply Notification"
+            echo "Chat ID: ${chat_id}"
+            echo "Replied message id: ${message_id}"
+            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
         fi
     done
 }
