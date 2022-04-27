@@ -1,0 +1,38 @@
+name: Docker Build and Publish
+
+on:
+  push:
+    tags: [ 'v*.*.*' ]
+
+env:
+  REGISTRY: registry.mycontrol.es
+  # github.repository as <account>/<repo>
+  REPO_NAME: ${{ github.repository }}
+
+jobs:
+  buildAndPush:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs\/tags\/v}
+
+      - name: Get the image name
+        id: get_name
+        run: echo ::set-output name=IMAGE_NAME::${REPO_NAME/docker-}
+
+      - name: Build the Docker image
+        run: docker build --build-arg BOT_TELEGRAM_TOKEN=${{ secrets.BOT_TELEGRAM_TOKEN }} --build-arg BOT_GIPHY_API_KEY=${{ secrets.BOT_GIPHY_API_KEY }} --build-arg VERSION=${{ steps.get_version.outputs.VERSION }} --build-arg BUILD_DATE="$(date +%Y/%m/%dT%H:%M:%S)" --file Dockerfile --tag ${{ steps.get_name.outputs.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} .
+        
+      # Login aginst a Docker registry
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: docker push ${{ steps.get_name.outputs.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }}

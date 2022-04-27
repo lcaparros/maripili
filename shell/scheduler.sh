@@ -1,7 +1,5 @@
 #!/bin/bash
 
-BOT_TELEGRAM_TOKEN="1842565926:AAHwS7j3WvO26JRGiqHcG1U9iUEkAnsgRsA"
-BOT_GIPHY_API_KEY="s1jYOseq17JoSgfz6dQ3BiLGLoibRbZT"
 CHAT_ID="6269548"
 
 base=$(dirname "$0")

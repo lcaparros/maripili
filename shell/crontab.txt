@@ -1,0 +1,2 @@
+0 8 * * * /scripts/scheduler.sh --morning >> /var/log/container.log
+59 23 * * * /scripts/scheduler.sh --nighth >> /var/log/container.log
