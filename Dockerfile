@@ -12,7 +12,7 @@ RUN \
     apt update && \
     apt -y install cron bash curl jq
 
-COPY . /scripts
+COPY shell /scripts
 
 RUN crontab /scripts/crontab.txt
 

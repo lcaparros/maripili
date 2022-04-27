@@ -10,7 +10,7 @@ RUN \
     apk add --no-cache bash curl jq && \
     rm -rf /var/cache/apk/*
 
-COPY . /scripts
+COPY shell /scripts
 
 RUN crontab /scripts/crontab.txt
 
