@@ -24,7 +24,7 @@ jobs:
         run: echo ::set-output name=IMAGE_NAME::${REPO_NAME/docker-}
 
       - name: Build the Docker image
-        run: docker build --build-arg BOT_TELEGRAM_TOKEN=${{ secrets.BOT_TELEGRAM_TOKEN }} --build-arg BOT_GIPHY_API_KEY=${{ secrets.BOT_GIPHY_API_KEY }} --build-arg VERSION=${{ steps.get_version.outputs.VERSION }} --build-arg BUILD_DATE="$(date +%Y/%m/%dT%H:%M:%S)" --file Dockerfile --tag ${{ steps.get_name.outputs.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} .
+        run: docker build --build-arg BOT_TELEGRAM_TOKEN=${{ secrets.BOT_TELEGRAM_TOKEN }} --build-arg BOT_GIPHY_API_KEY=${{ secrets.BOT_GIPHY_API_KEY }} --build-arg VERSION=${{ steps.get_version.outputs.VERSION }} --build-arg BUILD_DATE="$(date +%Y/%m/%dT%H:%M:%S)" --file Dockerfile --tag ${{ secrets.DOCKER_REGISTRY }}/${{ steps.get_name.outputs.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }} .
         
       # Login aginst a Docker registry
       - name: Log into registry
@@ -35,4 +35,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_REGISTRY }}${{ steps.get_name.outputs.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }}
+        run: docker push ${{ steps.get_name.outputs.IMAGE_NAME }}:${{ steps.get_version.outputs.VERSION }}
