@@ -1,8 +1,8 @@
 # mari-pili
 Mari Pili is an awesome bot that can fit all your needs
 
-[![GitHub Repository](https://img.shields.io/static/v1.svg?color=4edafc&labelColor=555555&logoColor=ffffff&style=flat&label=lcaparros/docker-terraform&message=GitHub%20Repo&logo=github)](https://github.com/lcaparros/mari-pili)
-[![GitHub Stars](https://img.shields.io/github/stars/lcaparros/docker-terraform.svg?color=4edafc&labelColor=555555&logoColor=ffffff&style=flat&logo=github)](https://github.com/lcaparros/mari-pili)
+[![GitHub Repository](https://img.shields.io/static/v1.svg?color=4edafc&labelColor=555555&logoColor=ffffff&style=flat&label=lcaparros/mari-pili&message=GitHub%20Repo&logo=github)](https://github.com/lcaparros/mari-pili)
+[![GitHub Stars](https://img.shields.io/github/stars/lcaparros/mari-pili.svg?color=4edafc&labelColor=555555&logoColor=ffffff&style=flat&logo=github)](https://github.com/lcaparros/mari-pili)
 [![GitHub](https://img.shields.io/static/v1.svg?color=4edafc&labelColor=555555&logoColor=ffffff&style=flat&label=lcaparros&message=GitHub&logo=github)](https://github.com/lcaparros "view the source for all of our repositories.")
 
 # Contribution

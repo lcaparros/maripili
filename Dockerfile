@@ -7,6 +7,7 @@ LABEL maintainer="lcaparros"
 
 ARG BOT_GIPHY_API_KEY
 ARG BOT_TELEGRAM_TOKEN
+ARG DESERTORES_CHAT_ID
 
 RUN \
     apt update && \
