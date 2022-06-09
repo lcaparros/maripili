@@ -2,6 +2,7 @@
 
 base=$(dirname "$0")
 
+. $base/common_functions.sh
 . $base/telegram_functions.sh
 . $base/giphy_functions.sh
 
@@ -26,6 +27,7 @@ fetchMessages() {
         chat_id=$(echo $text | jq -r ".[$i].chat_id")
         message_id=$(echo $text | jq -r ".[$i].id")
         message_language=$(get_language $t)
+        new_log
         echo "Message: $message_language"
         if [[ ${message_language} == "EN" ]]; then
             echo "New Reply Notification - No English!"
