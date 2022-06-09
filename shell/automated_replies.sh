@@ -27,7 +27,6 @@ fetchMessages() {
         chat_id=$(echo $text | jq -r ".[$i].chat_id")
         message_id=$(echo $text | jq -r ".[$i].id")
         new_log
-        echo "Message: $message_language"
         if [[ ${message_language} == "EN" ]]; then
             echo "New Reply Notification - No English!"
             echo "Chat ID: ${chat_id}"
@@ -45,12 +44,12 @@ fetchMessages() {
             echo "Search term: ${t}"
             sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-50 -n 1) "${search_term}")"
         elif echo $t | grep -iqF "chiquito"; then
-            echo "New Reply Notification"
+            echo "New Reply Notification to message: ${t}"
             echo "Chat ID: ${chat_id}"
             echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/chiquito.txt | head -n $(shuf -i 1-49 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "lopera"; then
-            echo "New Reply Notification"
+            echo "New Reply Notification to message: ${t}"
             echo "Chat ID: ${chat_id}"
             echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
@@ -60,6 +59,9 @@ fetchMessages() {
             new_msg=$(echo $t | cut -d ' ' -f2-)
             echo "Message: ${new_msg}"
             sendTelegramMessage "${chat_id}" "${new_msg}"
+        else
+            echo "No reply notification to received message: ${t}"
+            echo "Chat ID: ${chat_id}"
         fi
     done
 }
