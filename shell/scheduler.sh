@@ -8,7 +8,7 @@ base=$(dirname "$0")
 desertores_morning() {
     echo "Sending new Good Morning message to Desertores"
     morning=$(cat $base/morning_phrases.txt | head -n $(date +%d) | tail -n 1)
-    sendTelegramAnimation "${DESERTORES_CHAT_ID}" "$(search_gif $(date +%j) goat)"
+    sendTelegramAnimation "${DESERTORES_CHAT_ID}" "$(search_gif $(shuf -i 1-50 -n 1) goat)"
     sendTelegramMessage "${DESERTORES_CHAT_ID}" "${morning}"
 }
 

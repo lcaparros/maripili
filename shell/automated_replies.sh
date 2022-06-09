@@ -44,7 +44,7 @@ fetchMessages() {
             echo "Chat ID: ${chat_id}"
             search_term=$(echo $t | cut -d ' ' -f2-)
             echo "Search term: ${t}"
-            sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-500 -n 1) "${search_term}")"
+            sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-50 -n 1) "${search_term}")"
         elif echo $t | grep -iqF "chiquito"; then
             echo "New Reply Notification"
             echo "Chat ID: ${chat_id}"
