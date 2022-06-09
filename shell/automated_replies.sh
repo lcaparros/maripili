@@ -43,6 +43,11 @@ fetchMessages() {
             search_term=$(echo $t | cut -d ' ' -f2-)
             echo "Search term: ${t}"
             sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-50 -n 1) "${search_term}")"
+        elif echo $t | grep -iqF "maripili"; then
+            echo "New Reply Notification to message: ${t}"
+            echo "Chat ID: ${chat_id}"
+            echo "Replied message id: ${message_id}"
+            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/maripili.txt | head -n $(shuf -i 1-6 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "chiquito"; then
             echo "New Reply Notification to message: ${t}"
             echo "Chat ID: ${chat_id}"
