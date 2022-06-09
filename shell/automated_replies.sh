@@ -26,7 +26,6 @@ fetchMessages() {
         t=$(echo $text | jq -r ".[$i].text")
         chat_id=$(echo $text | jq -r ".[$i].chat_id")
         message_id=$(echo $text | jq -r ".[$i].id")
-        message_language=$(get_language $t)
         new_log
         echo "Message: $message_language"
         if [[ ${message_language} == "EN" ]]; then
