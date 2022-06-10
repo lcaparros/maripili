@@ -59,11 +59,11 @@ fetchMessages() {
             echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "/desertores"; then
-            echo "New Telegram Notification"
-            echo "Chat ID: ${chat_id}"
+            echo "New Telegram Notification to Desertores"
+            echo "Chat ID: ${DESERTORES_CHAT_ID}"
             new_msg=$(echo $t | cut -d ' ' -f2-)
             echo "Message: ${new_msg}"
-            sendTelegramMessage "${chat_id}" "${new_msg}"
+            sendTelegramMessage "${DESERTORES_CHAT_ID}" "${new_msg}"
         else
             echo "No reply notification to received message: ${t}"
             echo "Chat ID: ${chat_id}"
