@@ -29,45 +29,37 @@ fetchMessages() {
         new_log
         if [[ ${message_language} == "EN" ]]; then
             echo "New Reply Notification - No English!"
-            echo "Chat ID: ${chat_id}"
-            echo "Message: ${t}"
+            echo "Received message: ${t}"
             replyTelegramMessage "$chat_id" "$message_id" "A mi en inglés no!!"
         elif [[ $t == *"/start"* ]]; then
             echo "New Telegram Notification"
-            echo "Chat ID: ${chat_id}"
-            echo "Message: ${t}"
+            echo "Received message: ${t}"
             sendTelegramMessage "${chat_id}" "Así no funsiona esto kabesa"
         elif [[ $t == *"/gif"* ]]; then
             echo "New Gif sent"
-            echo "Chat ID: ${chat_id}"
             search_term=$(echo $t | cut -d ' ' -f2-)
             echo "Search term: ${t}"
             sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-50 -n 1) "${search_term}")"
         elif echo $t | grep -iqF "maripili"; then
             echo "New Reply Notification to message: ${t}"
-            echo "Chat ID: ${chat_id}"
-            echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/maripili.txt | head -n $(shuf -i 1-6 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "chiquito"; then
             echo "New Reply Notification to message: ${t}"
-            echo "Chat ID: ${chat_id}"
-            echo "Replied message id: ${message_id}"
-            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/chiquito.txt | head -n $(shuf -i 1-49 -n 1) | tail -n 1)"
+            RANDOM_NUMBER=$(shuf -i 1-10 -n 1)
+            if [ "${RANDOM_NUMBER}" -gt "3" ]; then
+                replyWithTelegramVoice "$chat_id" "$message_id" "$(cat $base/chiquito_voices.txt | sort -R | tail -n 1)"
+            else
+                replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/chiquito.txt | sort -R | tail -n 1)"
+            fi
         elif echo $t | grep -iqF "lopera"; then
             echo "New Reply Notification to message: ${t}"
-            echo "Chat ID: ${chat_id}"
-            echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
         elif cat $base/insultos.txt | grep -iqE "$(echo "${t}"| sed 's^ ^\| ^g')"; then
             echo "New Reply Notification to message: ${t}"
-            echo "Chat ID: ${chat_id}"
-            echo "Replied message id: ${message_id}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/bocasucia.txt | head -n $(shuf -i 1-8 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "/desertores"; then
             echo "New Telegram Notification to Desertores"
-            echo "Chat ID: ${DESERTORES_CHAT_ID}"
             new_msg=$(echo $t | cut -d ' ' -f2-)
-            echo "Message: ${new_msg}"
             sendTelegramMessage "${DESERTORES_CHAT_ID}" "${new_msg}"
         else
             echo "No reply notification to received message: ${t}"

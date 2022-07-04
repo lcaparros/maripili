@@ -58,7 +58,7 @@ sendTelegramAnimation() {
     CHAT_ID="$1"
     ANIMATION_URL="$2"
 
-    echo "New Telegram Notification"
+    echo "New Telegram Animation"
     echo "Chat ID: ${CHAT_ID}"
     echo "Animation: ${ANIMATION_URL}"
 
@@ -67,4 +67,24 @@ sendTelegramAnimation() {
         --data "chat_id=${CHAT_ID}" \
         --data-urlencode "animation=${ANIMATION_URL}" \
         "${TELEGRAM_API_URL}/sendAnimation"
+}
+
+replyWithTelegramVoice() {
+    CHAT_ID="$1"
+    MESSAGE_TO_REPLY="$2"
+    AUDIO_FILE="$3"
+
+    echo "New Telegram reply with voice"
+    echo "Chat ID: ${CHAT_ID}"
+    echo "Message to reply: ${MESSAGE_TO_REPLY}"
+    echo "Voice file path: ${AUDIO_FILE}"
+
+    curl \
+        --request GET \
+        --data "chat_id=${CHAT_ID}" \
+        --data "reply_to_message_id=${MESSAGE_TO_REPLY}" \
+        --data "parse_mode=Markdown" \
+        --data "protect_content=true" \
+        --data "voice=${AUDIO_FILE}" \
+        "${TELEGRAM_API_URL}/sendVoice"
 }
