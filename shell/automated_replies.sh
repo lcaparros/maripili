@@ -54,9 +54,12 @@ fetchMessages() {
         elif echo $t | grep -iqF "lopera"; then
             echo "New Reply Notification to message: ${t}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
+        elif echo $t | grep -iqF "homer"; then
+            echo "New Reply Notification to message: ${t}"
+            replyWithTelegramVoice "$chat_id" "$message_id" "$(cat $base/homer_voices.txt | sort -R | tail -n 1)"
         elif cat $base/insultos.txt | grep -iqE "$(echo "${t}"| sed 's^ ^\| ^g')"; then
             echo "New Reply Notification to message: ${t}"
-            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/bocasucia.txt | head -n $(shuf -i 1-8 -n 1) | tail -n 1)"
+            # replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/bocasucia.txt | head -n $(shuf -i 1-8 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "/desertores"; then
             echo "New Telegram Notification to Desertores"
             new_msg=$(echo $t | cut -d ' ' -f2-)
