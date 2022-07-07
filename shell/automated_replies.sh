@@ -51,12 +51,12 @@ fetchMessages() {
             else
                 replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/chiquito.txt | sort -R | tail -n 1)"
             fi
-        elif echo $t | grep -iqF "lopera"; then
-            echo "New Reply Notification to message: ${t}"
-            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
         elif echo $t | grep -iqF "homer"; then
             echo "New Reply Notification to message: ${t}"
             replyWithTelegramVoice "$chat_id" "$message_id" "$(cat $base/homer_voices.txt | sort -R | tail -n 1)"
+        elif echo $t | grep -iqF "lopera"; then
+            echo "New Reply Notification to message: ${t}"
+            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
         elif cat $base/insultos.txt | grep -iqE "$(echo "${t}"| sed 's^ ^\| ^g')"; then
             echo "New Reply Notification to message: ${t}"
             # replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/bocasucia.txt | head -n $(shuf -i 1-8 -n 1) | tail -n 1)"
