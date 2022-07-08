@@ -5,6 +5,8 @@ base=$(dirname "$0")
 . $base/common_functions.sh
 . $base/telegram_functions.sh
 . $base/giphy_functions.sh
+. $base/voice_faker.sh
+. $base/audio_converter.sh
 
 update_offset=1
 
@@ -14,6 +16,18 @@ get_language() {
         -H "Content-Type: application/json; charset=utf-8" \
         -d @request.json \
         "https://translation.googleapis.com/language/translate/v2/detect"
+}
+
+response_vocice_faker() {
+    VOICE_MODEL_TOKEN=$1
+    MESSAGE=$2
+    audio_url=$(fake_voice "${VOICE_MODEL_TOKEN}" "${MESSAGE}" | tail -n 1)
+    echo "Generated audio URL: ${audio_url}"
+    mkdir -p $base/tmp
+    curl -s -o $base/tmp/temp.wav "${audio_url}"
+    voice_file_id=$(prepare_for_telegram_voice wav $base/tmp/temp.wav)
+    rm -rf $base/tmp
+    replyWithTelegramVoice "$chat_id" "$message_id" "${voice_file_id}"
 }
 
 fetchMessages() {
@@ -43,6 +57,16 @@ fetchMessages() {
         elif echo $t | grep -iqF "maripili"; then
             echo "New Reply Notification to message: ${t}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/maripili.txt | head -n $(shuf -i 1-6 -n 1) | tail -n 1)"
+        elif echo $t | grep -iqF "chiquito dime"; then
+            echo "New Telegram Voice with Chiquito voice"
+            echo "Received message: ${t}"
+            tts=$(echo $t | cut -d ' ' -f3-)
+            response_vocice_faker "TM:farceb1p554n" "$tts"
+        elif echo $t | grep -iqF "darth vader dime"; then
+            echo "New Telegram Voice with Chiquito voice"
+            echo "Received message: ${t}"
+            tts=$(echo $t | cut -d ' ' -f4-)
+            response_vocice_faker "TM:ssrc0c3kqf5w" "$tts"
         elif echo $t | grep -iqF "chiquito"; then
             echo "New Reply Notification to message: ${t}"
             RANDOM_NUMBER=$(shuf -i 1-10 -n 1)
