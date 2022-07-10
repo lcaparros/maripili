@@ -80,10 +80,10 @@ sendTelegramVoice() {
     curl --form voice=@\""${AUDIO_FILE}"\" "${TELEGRAM_API_URL}/sendVoice?chat_id=${CHAT_ID}"
 }
 
-replyWithTelegramVoice() {
+replyWithTelegramVoiceById() {
     CHAT_ID="$1"
     MESSAGE_TO_REPLY="$2"
-    AUDIO_FILE="$3"
+    AUDIO_FILE_ID="$3"
 
     echo "New Telegram reply with voice"
     echo "Chat ID: ${CHAT_ID}"
@@ -96,6 +96,19 @@ replyWithTelegramVoice() {
         --data "reply_to_message_id=${MESSAGE_TO_REPLY}" \
         --data "parse_mode=Markdown" \
         --data "protect_content=true" \
-        --data "voice=${AUDIO_FILE}" \
+        --data "voice=${AUDIO_FILE_ID}" \
         "${TELEGRAM_API_URL}/sendVoice"
+}
+
+replyWithTelegramVoiceByFile() {
+    CHAT_ID="$1"
+    MESSAGE_TO_REPLY="$2"
+    AUDIO_FILE="$3"
+
+    echo "New Telegram reply with voice"
+    echo "Chat ID: ${CHAT_ID}"
+    echo "Message to reply: ${MESSAGE_TO_REPLY}"
+    echo "Voice file path: ${AUDIO_FILE}"
+
+    curl -F voice=@\""${AUDIO_FILE}"\" "${TELEGRAM_API_URL}/sendVoice?chat_id=${CHAT_ID}&reply_to_message_id=${MESSAGE_TO_REPLY}&protect_content=true"
 }

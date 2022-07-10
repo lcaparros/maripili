@@ -25,9 +25,9 @@ response_vocice_faker() {
     echo "Generated audio URL: ${audio_url}"
     mkdir -p $base/tmp
     curl -s -o $base/tmp/temp.wav "${audio_url}"
-    voice_file_id=$(prepare_for_telegram_voice wav $base/tmp/temp.wav)
+    voice_file=$(prepare_for_telegram_voice wav $base/tmp/temp.wav)
+    replyWithTelegramVoiceByFile "$chat_id" "$message_id" "${voice_file}"
     rm -rf $base/tmp
-    replyWithTelegramVoice "$chat_id" "$message_id" "${voice_file_id}"
 }
 
 fetchMessages() {
@@ -81,13 +81,13 @@ fetchMessages() {
             echo "New Reply Notification to message: ${t}"
             RANDOM_NUMBER=$(shuf -i 1-10 -n 1)
             if [ "${RANDOM_NUMBER}" -gt "3" ]; then
-                replyWithTelegramVoice "$chat_id" "$message_id" "$(cat $base/resources/chiquito_voices.txt | sort -R | tail -n 1)"
+                replyWithTelegramVoiceById "$chat_id" "$message_id" "$(cat $base/resources/chiquito_voices.txt | sort -R | tail -n 1)"
             else
                 replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/chiquito.txt | sort -R | tail -n 1)"
             fi
         elif echo $t | grep -iqF "homer"; then
             echo "New Reply Notification to message: ${t}"
-            replyWithTelegramVoice "$chat_id" "$message_id" "$(cat $base/resources/homer_voices.txt | sort -R | tail -n 1)"
+            replyWithTelegramVoiceById "$chat_id" "$message_id" "$(cat $base/resources/homer_voices.txt | sort -R | tail -n 1)"
         elif echo $t | grep -iqF "lopera"; then
             echo "New Reply Notification to message: ${t}"
             replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
