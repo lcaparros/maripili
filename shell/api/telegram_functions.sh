@@ -69,6 +69,17 @@ sendTelegramAnimation() {
         "${TELEGRAM_API_URL}/sendAnimation"
 }
 
+sendTelegramVoice() {
+    CHAT_ID="$1"
+    AUDIO_FILE="$2"
+
+    echo "New Telegram Voice"
+    echo "Chat ID: ${CHAT_ID}"
+    echo "Voice file path: ${AUDIO_FILE}"
+
+    curl --form voice=@\""${AUDIO_FILE}"\" "${TELEGRAM_API_URL}/sendVoice?chat_id=${CHAT_ID}"
+}
+
 replyWithTelegramVoice() {
     CHAT_ID="$1"
     MESSAGE_TO_REPLY="$2"

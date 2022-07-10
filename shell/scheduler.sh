@@ -2,12 +2,12 @@
 
 base=$(dirname "$0")
 
-. $base/telegram_functions.sh
-. $base/giphy_functions.sh
+. $base/api/telegram_functions.sh
+. $base/api/giphy_functions.sh
 
 desertores_morning() {
     echo "Sending new Good Morning message to Desertores"
-    morning=$(cat $base/morning_phrases.txt | head -n $(date +%d) | tail -n 1)
+    morning=$(cat $base/resources/morning_phrases.txt | head -n $(date +%d) | tail -n 1)
     sendTelegramAnimation "${DESERTORES_CHAT_ID}" "$(search_gif $(shuf -i 1-50 -n 1) goat)"
     sendTelegramMessage "${DESERTORES_CHAT_ID}" "${morning}"
 }
