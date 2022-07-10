@@ -62,11 +62,21 @@ fetchMessages() {
             echo "Received message: ${t}"
             tts=$(echo $t | cut -d ' ' -f3-)
             response_vocice_faker "TM:farceb1p554n" "$tts"
-        elif echo $t | grep -iqF "darth vader dime"; then
-            echo "New Telegram Voice with Chiquito voice"
+        elif echo $t | grep -iqF "bart dime"; then
+            echo "New Telegram Voice with Bart Simpson voice"
             echo "Received message: ${t}"
-            tts=$(echo $t | cut -d ' ' -f4-)
-            response_vocice_faker "TM:ssrc0c3kqf5w" "$tts"
+            tts=$(echo $t | cut -d ' ' -f3-)
+            response_vocice_faker "TM:86jdn5w5xbyk" "$tts"
+        elif echo $t | grep -iqF "peter dime"; then
+            echo "New Telegram Voice with Peter Griffin voice"
+            echo "Received message: ${t}"
+            tts=$(echo $t | cut -d ' ' -f3-)
+            response_vocice_faker "TM:ge1xb5aev12d" "$tts"
+        elif echo $t | grep -iqF "lola dime"; then
+            echo "New Telegram Voice with Peter Griffin voice"
+            echo "Received message: ${t}"
+            tts=$(echo $t | cut -d ' ' -f3-)
+            response_vocice_faker "TM:4cp1ppka6mc8" "$tts"
         elif echo $t | grep -iqF "chiquito"; then
             echo "New Reply Notification to message: ${t}"
             RANDOM_NUMBER=$(shuf -i 1-10 -n 1)
