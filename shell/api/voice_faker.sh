@@ -1,8 +1,17 @@
 #!/bin/bash
 
 get_voices() {
+    curl -X GET -s https://api.fakeyou.com/tts/list | jq
+}
+
+get_voices_by_language() {
     LANGUAGE=$1
-    curl -X GET -s https://api.fakeyou.com/tts/list | tac | tac | jq -r "[.models[] | select(.ietf_language_tag == \"${LANGUAGE}\") | .title]"
+    get_voices | tac | tac | jq -r "[.models[] | select(.ietf_language_tag | contains(\"${LANGUAGE}\")) | {title: .title, language: .ietf_language_tag}]"
+}
+
+get_voices_by_title() {
+    TITLE=$1
+    get_voices | tac | tac | jq -r "[.models[] | select(.title | contains(\"${TITLE}\")) | {title: .title, language: .ietf_language_tag}]"
 }
 
 get_voice_model_token() {
