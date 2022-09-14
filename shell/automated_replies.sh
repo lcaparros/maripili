@@ -56,7 +56,7 @@ fetchMessages() {
             sendTelegramAnimation "${chat_id}" "$(search_gif $(shuf -i 1-50 -n 1) "${search_term}")"
         elif echo $t | grep -iqF "maripili"; then
             echo "New Reply Notification to message: ${t}"
-            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/maripili.txt | head -n $(shuf -i 1-6 -n 1) | tail -n 1)"
+            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/maripili.txt | sort -R | tail -n 1)"
         elif echo $t | grep -iqF "chiquito dime"; then
             echo "New Telegram Voice with Chiquito voice"
             echo "Received message: ${t}"
@@ -90,10 +90,10 @@ fetchMessages() {
             replyWithTelegramVoiceById "$chat_id" "$message_id" "$(cat $base/resources/homer_voices.txt | sort -R | tail -n 1)"
         elif echo $t | grep -iqF "lopera"; then
             echo "New Reply Notification to message: ${t}"
-            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/lopera.txt | head -n $(shuf -i 1-12 -n 1) | tail -n 1)"
+            replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/lopera.txt | sort -R | tail -n 1)"
         elif cat $base/resources/insultos.txt | grep -iqE "$(echo "${t}"| sed 's^ ^\| ^g')"; then
             echo "New Reply Notification to message: ${t}"
-            # replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/bocasucia.txt | head -n $(shuf -i 1-8 -n 1) | tail -n 1)"
+            # replyTelegramMessage "$chat_id" "$message_id" "$(cat $base/resources/bocasucia.txt | sort -R | tail -n 1)"
         elif echo $t | grep -iqF "/desertores"; then
             echo "New Telegram Notification to Desertores"
             new_msg=$(echo $t | cut -d ' ' -f2-)
