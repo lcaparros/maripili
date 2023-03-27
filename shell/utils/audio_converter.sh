@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CHAT_ID="xxxxxxx"
+CHAT_ID="6269548"
 
 prepare_for_telegram_voice() {
   INPUT_FORMAT="$1"

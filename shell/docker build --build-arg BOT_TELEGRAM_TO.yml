@@ -1,0 +1,1 @@
+docker build --build-arg BOT_TELEGRAM_TOKEN=1842565926:AAHwS7j3WvO26JRGiqHcG1U9iUEkAnsgRsA --build-arg BOT_GIPHY_API_KEY=s1jYOseq17JoSgfz6dQ3BiLGLoibRbZT --build-arg DESERTORES_CHAT_ID=${{ secrets.DESERTORES_CHAT_ID }} --build-arg VERSION=$1 --build-arg BUILD_DATE="$(date +%Y/%m/%dT%H:%M:%S)" --file Dockerfile --tag mari-pili:$1 .
