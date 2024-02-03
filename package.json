@@ -1,0 +1,23 @@
+{
+  "name": "mari-pili",
+  "version": "1.0.0",
+  "description": "Mari Pili is an awesome bot that can fit all your needs",
+  "type": "module",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@giphy/js-fetch-api": "5.3.0",
+    "dotenv": "16.0.3",
+    "node-schedule": "2.1.1",
+    "node-telegram-bot-api": "0.64.0"
+  },
+  "devDependencies": {
+    "picocolors": "1.0.0",
+    "prettier": "2.8.7",
+    "standard": "17.0.0"
+  }
+}

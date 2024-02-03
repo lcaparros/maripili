@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM node:20-alpine
 
 ARG BUILD_DATE
 ARG VERSION
@@ -9,14 +9,12 @@ ARG BOT_GIPHY_API_KEY
 ARG BOT_TELEGRAM_TOKEN
 ARG DESERTORES_CHAT_ID
 
-RUN \
-    apt update && \
-    apt -y install cron bash curl jq
+RUN apk update && apk add bash
 
-COPY shell /scripts
+COPY . /app
 
-RUN crontab /scripts/crontab.txt
+WORKDIR /app
 
-WORKDIR /scripts
+RUN npm install
 
-CMD bash -c "./automated_replies.sh"
+ENTRYPOINT bash -c "npm run start"
