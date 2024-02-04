@@ -46,7 +46,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build the Docker image
-        run: docker build --build-arg BOT_TELEGRAM_TOKEN=${{ secrets.BOT_TELEGRAM_TOKEN }} --build-arg BOT_GIPHY_API_KEY=${{ secrets.BOT_GIPHY_API_KEY }} --build-arg DESERTORES_CHAT_ID=${{ secrets.DESERTORES_CHAT_ID }} --build-arg VERSION=${{ steps.get_version.outputs.VERSION }} --build-arg BUILD_DATE="$(date +%Y/%m/%dT%H:%M:%S)" --file Dockerfile --tag ${{ steps.login-ecr.outputs.registry }}/$REPOSITORY:${{ steps.get_version.outputs.VERSION }} .
+        run: docker build --build-arg VERSION=${{ steps.get_version.outputs.VERSION }} --build-arg BUILD_DATE="$(date +%Y/%m/%dT%H:%M:%S)" --file Dockerfile --tag ${{ steps.login-ecr.outputs.registry }}/$REPOSITORY:${{ steps.get_version.outputs.VERSION }} .
 
       - name: Push docker image to Amazon ECR
         env:
@@ -72,9 +72,9 @@ jobs:
         shell: bash
 
       - name: Copy resources to remote
-        run: scp -P $SSH_PORT -i ~/.ssh/private.key -r docker-compose.yml $SSH_USER@$SSH_HOST:~/docker/trendingchollos/docker-compose.yml
+        run: scp -P $SSH_PORT -i ~/.ssh/private.key -r docker-compose.yml $SSH_USER@$SSH_HOST:~/docker/maripili/docker-compose.yml
         shell: bash
 
       - name: Deploy service in remote
-        run: ssh -t -t -p $SSH_PORT -i ~/.ssh/private.key $SSH_USER@$SSH_HOST "docker login -u AWS -p $(aws ecr get-login-password --region eu-west-3) 050914759395.dkr.ecr.eu-west-3.amazonaws.com && cd ~/docker/trendingchollos && docker compose pull && docker compose up -d"
+        run: ssh -t -t -p $SSH_PORT -i ~/.ssh/private.key $SSH_USER@$SSH_HOST "docker login -u AWS -p $(aws ecr get-login-password --region eu-west-3) 050914759395.dkr.ecr.eu-west-3.amazonaws.com && cd ~/docker/maripili && docker compose pull && docker compose up -d"
         shell: bash
