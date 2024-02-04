@@ -19,9 +19,6 @@ logInfo('Starting bot...')
 
 const gf = new GiphyFetch(giphyToken)
 
-logInfo('Sending test message')
-bot.sendMessage('6269548', 'Hola')
-
 logInfo('Scheduling tasks')
 
 schedule.scheduleJob('0 8 * * *', async () => {
