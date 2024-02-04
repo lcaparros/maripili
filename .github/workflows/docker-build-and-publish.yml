@@ -78,5 +78,5 @@ jobs:
         shell: bash
 
       - name: Deploy service in remote
-        run: ssh -t -t -p $SSH_PORT -i ~/.ssh/private.key $SSH_USER@$SSH_HOST "docker login -u AWS -p $(aws ecr get-login-password --region eu-west-3) 050914759395.dkr.ecr.eu-west-3.amazonaws.com && cd ~/docker/maripili && docker compose pull && docker compose --env BOT_TELEGRAM_TOKEN=${{ secrets.BOT_TELEGRAM_TOKEN }} --env BOT_GIPHY_API_KEY=${{ secrets.BOT_GIPHY_API_KEY }} --env DESERTORES_CHAT_ID=${{ secrets.DESERTORES_CHAT_ID }} up -d"
+        run: ssh -t -t -p $SSH_PORT -i ~/.ssh/private.key $SSH_USER@$SSH_HOST "docker login -u AWS -p $(aws ecr get-login-password --region eu-west-3) 050914759395.dkr.ecr.eu-west-3.amazonaws.com && cd ~/docker/maripili && docker compose pull && docker compose up -d"
         shell: bash
