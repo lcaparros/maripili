@@ -1,9 +1,9 @@
 name: Version Increment
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types:
+      - closed
 
 jobs:
   version:
