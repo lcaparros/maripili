@@ -1,8 +1,9 @@
 name: Build And Deploy
 
 on:
-  push:
-    tags: ['v*.*.*']
+  pull_request:
+    types:
+      - closed
 
 env:
   # github.repository as <account>/<repo>
@@ -13,6 +14,15 @@ env:
   SSH_HOST: ${{secrets.SSH_HOST}}
 
 jobs:
+  incrementVersion:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - run: git config user.name "$GITHUB_ACTOR"
+      - run: npm version minor
+      - run: git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+
   buildAndPush:
     runs-on: ubuntu-22.04
     steps:
