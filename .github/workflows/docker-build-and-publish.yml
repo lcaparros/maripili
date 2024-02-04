@@ -24,6 +24,7 @@ jobs:
       - run: git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" --follow-tags
 
   buildAndPush:
+    needs: incrementVersion
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
