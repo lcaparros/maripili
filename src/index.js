@@ -21,7 +21,7 @@ const gf = new GiphyFetch(giphyToken)
 
 logInfo('Scheduling tasks')
 
-schedule.scheduleJob('0 8 * * *', async () => {
+schedule.scheduleJob('0 7 * * *', async () => {
   const offset = randomIntFromInterval(1, 40)
   const type = randomFromPercentage(50) ? 'gifs' : 'stickers'
   const { data: gifs } = await gf.search('goat', {
@@ -38,7 +38,7 @@ schedule.scheduleJob('0 8 * * *', async () => {
 })
 logInfo('Good morning desertores scheduled')
 
-schedule.scheduleJob('59 23 * * *', () => {
+schedule.scheduleJob('59 22 * * *', () => {
   logInfo(`Sending good night message to ${chatIdDesertores}`)
   bot.sendMessage(chatIdDesertores, 'A ustedes!!')
 })
