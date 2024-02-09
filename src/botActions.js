@@ -1,7 +1,7 @@
 import { logInfo } from './log.js'
 import { frasesChiquito, frasesLopera, frasesMariPili, insultos, respuestasInsultos, voicesChiquito, voicesHomer } from './assets.js'
 import { getElementFromArray, randomFromPercentage } from './utils.js'
-import { sendMessageToAI } from './ai.js'
+import { sendTelegamToAI } from './ai.js'
 
 export function setActions(bot) {
   bot.onText(/^\/start/, function (msg) {
@@ -51,12 +51,10 @@ export function setActions(bot) {
     bot.sendVoice(chatId, getElementFromArray(voicesHomer))
   })
 
-  bot.onText(/cabra|mari|cabrita|loca/i, async function (msg) {
+  bot.onText(/mari|pili|cabra|cabrita|loca/i, async function (msg) {
     const chatId = msg.chat.id
     logInfo(`Conversation with chat ${chatId}`)
-    logInfo(`AI request: ${msg.from.username} - ${msg.text}`)
-    const aiResponse = await sendMessageToAI(`@${msg.from.username} - ${msg.text}`)
-    logInfo(`AI response: ${aiResponse}`)
+    const aiResponse = await sendTelegamToAI(msg)
     bot.sendMessage(chatId, aiResponse)
   })
 }
