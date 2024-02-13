@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  maripili-db:
+    image: mongo:6
+    container_name: maripili-db
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: maripili
+      MONGO_INITDB_ROOT_PASSWORD: test
+    volumes:
+      - ./data:/data/db

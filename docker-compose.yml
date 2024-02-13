@@ -6,7 +6,16 @@ services:
     container_name: maripili
     restart: always
     env_file:
-      - .env
+      - .app.env
+
+  maripili-db:
+    image: mongo:6
+    container_name: maripili-db
+    restart: always
+    env_file:
+      - .mongo.env
+    volumes:
+      - ./data:/data/db
 
 networks:
   default:

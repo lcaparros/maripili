@@ -1,4 +1,5 @@
 import pc from 'picocolors'
+import * as util from 'util'
 
 const { LOG_LEVEL } = process.env
 
@@ -10,8 +11,8 @@ const symbol = {
   error: pc.red('✖')
 }
 
-export const logDebug = (...args) => {
-  if (LOG_LEVEL === 'DEBUG') console.log(`${symbol.debug} ${pc.cyan(...args)}`)
+export const logDebug = (args) => {
+  if (LOG_LEVEL === 'DEBUG') console.log(util.inspect(args, { showHidden: false, depth: null, colors: true }))
 }
 export const logInfo = (...args) => console.log(`${symbol.info} ${pc.cyan(...args)}`)
 export const logError = (...args) => console.log(`${symbol.error} ${pc.red(...args)}`)
