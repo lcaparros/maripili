@@ -8,8 +8,10 @@ export function setActions(bot) {
     const chatId = msg.chat.id
     const nameUser = msg.from.first_name
 
-    logInfo(`Sending response to start comand to ${chatId}`)
-    bot.sendMessage(chatId, `Que dise ${nameUser}?? Así no funsiona esto kabesa`)
+    logInfo(`Printing help information in ${chatId}`)
+    const helpMessage =
+      '*Comandos:*\n\n/help Para mostrar la ayuda del bot\n/start Yo no lo probaría 😂\n/getChatId Devuelve el ID del chat desde el que se ejecuta el comando\n/maxWords Requiere los parámetros `chatId` y `newMaxWords` Este comando modificará el número máximo de palabras que usará el bot en sus mensajes de IA en un chat concreto Por defecto el valor es de 30 No obstante, en ocasiones puede poner mensajes más largos si la IA lo considera oportuno\n/getContext Requiere el parámetros `chatId` y te muestra el contexto actual para dicho chat\n/changeContext Requiere los parámetros `chatId` y `newContext` y este comando sustituirá el contexto del bot en el chat\n/addContext Requiere los parámetros `chatId` y `contextToAdd` y este comando añadirá el contexto `contextToAdd` al contexto actual del bot en el chat\n/backup Realiza un backup de todas las conversaciones y configraciones referentes a la IA'
+    bot.sendMessage(chatId, helpMessage, { parse_mode: 'MarkdownV2' })
   })
 
   bot.onText(/^\/start/, function (msg) {
@@ -18,6 +20,13 @@ export function setActions(bot) {
 
     logInfo(`Sending response to start comand to ${chatId}`)
     bot.sendMessage(chatId, `Que dise ${nameUser}?? Así no funsiona esto kabesa`)
+  })
+
+  bot.onText(/^\/getChatId/, function (msg) {
+    const chatId = msg.chat.id
+
+    logInfo(`Sending chatID to ${chatId}`)
+    bot.sendMessage(chatId, `El ID para este chat es: ${chatId}`)
   })
 
   bot.onText(/^\/maxWords/, function (msg) {
