@@ -4,16 +4,18 @@ services:
   maripili:
     image: 050914759395.dkr.ecr.eu-west-3.amazonaws.com/maripili:latest
     container_name: maripili
-    restart: always
+    restart: unless-stopped
     env_file:
       - .app.env
 
   maripili-db:
     image: mongo:6
     container_name: maripili-db
-    restart: always
+    restart: unless-stopped
     env_file:
       - .mongo.env
+    ports:
+      - '27001:27017'
     volumes:
       - ./data:/data/db
 
