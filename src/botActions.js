@@ -45,7 +45,7 @@ export function setActions(bot) {
     const args = msg.text.match(/\S+/gi)
     const targetChat = args[1]
 
-    const context = getContext(targetChat, newContext)
+    const context = getContext(targetChat)
     logInfo(`Getting context for chat ${targetChat} from chat ${chatId}`)
     bot.sendMessage(chatId, `Chat ${targetChat} context is: `)
   })
