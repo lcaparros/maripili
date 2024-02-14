@@ -1,9 +1,10 @@
 module.exports = {
   root: true,
-  extends: ['standard', 'prettier'],
+  extends: ['standard', 'plugin:svelte/recommended', 'prettier'],
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2020
+    ecmaVersion: 2020,
+    extraFileExtensions: ['.svelte']
   },
   env: {
     browser: true,
