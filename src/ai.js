@@ -34,6 +34,7 @@ export async function sendTelegamToAI(telegramMsg) {
       content: `Sueles responder con no más de ${chat.maxWords} palabras a no ser que sea extrictamente necesario. ${chat.context}`
     }
   ]
+  logDebug(chatContext.concat(chat.messages))
   const aiResponse = await sendMessageToAI(chatContext.concat(chat.messages))
   logInfo(`AI response: ${aiResponse}`)
   chat.messages.push({
