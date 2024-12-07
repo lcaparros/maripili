@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   maripili-db:
     image: mongo:6
