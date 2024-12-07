@@ -1,37 +1,44 @@
 import * as schedule from 'node-schedule'
-import { GiphyFetch } from '@giphy/js-fetch-api'
-import { logInfo } from './log.js'
+import { logDebug, logInfo } from './log.js'
 import { frasesBuenosDias } from './assets.js'
-import { getElementFromArray, randomFromPercentage, randomIntFromInterval, sleepMs } from './utils.js'
+import { getElementFromArray, searchGif, sleepMs } from './utils.js'
 
-import { BOT_GIPHY_API_KEY, DESERTORES_CHAT_ID } from './config.js'
-
-const gf = new GiphyFetch(BOT_GIPHY_API_KEY)
+import { DESERTORES_CHAT_ID, LOG_LEVEL } from './config.js'
 
 export function scheduleTasks(bot) {
   logInfo('Scheduling tasks')
   scheduleDesertoresTasks(bot)
+  if (LOG_LEVEL === 'DEBUG') {
+    let list = schedule.scheduledJobs
+    logDebug('This is the list of scheduled jobs')
+    logDebug(list)
+  }
 }
 
 function scheduleDesertoresTasks(bot) {
-  schedule.scheduleJob('0 7 * * *', async () => {
-    const offset = randomIntFromInterval(1, 40)
-    const type = randomFromPercentage(50) ? 'gifs' : 'stickers'
-    const { data: gifs } = await gf.search('goat', {
-      sort: 'relevant',
-      offset,
-      limit: 1,
-      type
-    })
+  // const goodMorningDesertoresRule = '0 7 * * *'
+  let goodMorningDesertoresRule = new schedule.RecurrenceRule()
+  goodMorningDesertoresRule.tz = 'Europe/Madrid'
+  goodMorningDesertoresRule.hour = 8
+  goodMorningDesertoresRule.minute = 0
+  goodMorningDesertoresRule.second = 0
+  schedule.scheduleJob(goodMorningDesertoresRule, async () => {
+    const gif = await searchGif('goat')
     logInfo(`Sending goat gif to ${DESERTORES_CHAT_ID}`)
-    bot.sendAnimation(DESERTORES_CHAT_ID, gifs[0].images.original.url)
+    bot.sendAnimation(DESERTORES_CHAT_ID, gif)
     await sleepMs(1000)
     logInfo(`Sending good morning message to ${DESERTORES_CHAT_ID}`)
     bot.sendMessage(DESERTORES_CHAT_ID, getElementFromArray(frasesBuenosDias))
   })
   logInfo('Good morning desertores scheduled')
 
-  schedule.scheduleJob('59 22 * * *', () => {
+  // const goodNightDesertoresRule = '59 22 * * *'
+  let goodNightDesertoresRule = new schedule.RecurrenceRule()
+  goodNightDesertoresRule.tz = 'Europe/Madrid'
+  goodNightDesertoresRule.hour = 0
+  goodNightDesertoresRule.minute = 0
+  goodNightDesertoresRule.second = 0
+  schedule.scheduleJob(goodNightDesertoresRule, () => {
     logInfo(`Sending good night message to ${DESERTORES_CHAT_ID}`)
     bot.sendMessage(DESERTORES_CHAT_ID, 'A ustedes!!')
   })
