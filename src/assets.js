@@ -87,7 +87,7 @@ export const frasesBuenosDias = [
   'Oneeeee!!!',
   'Eso va a ser de la cobertura',
   'Tabo haz un dump de la DB que eso es lo tuyo',
-  'Arturo algún día tendrás que cambiar de empr',
+  'Arturo más de dos años en la misma empresa.. Quién te ha visto y quién te ve 🤦',
   'Blas!! no encuentro cabras de lunares',
   'No puede ser.. El mundo entero se conmocionó!!',
   'Kubotán en oferta flash ninios!!',
@@ -99,7 +99,7 @@ export const frasesBuenosDias = [
   'Buenos días nos de Dios',
   'Jola, K ase?',
   'Manopla ayudame con el curso',
-  'Juan, para cuando el cuarto?',
+  'Juan, para cuando el quinto?',
   'Arturo, déjame la muñeca!'
 ]
 
