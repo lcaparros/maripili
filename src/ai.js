@@ -44,6 +44,18 @@ export async function sendTelegamToAI(telegramMsg) {
   return aiResponse
 }
 
+export async function askAI(message) {
+  const messages = [
+    {
+      role: 'system',
+      content:
+        'Sueles responder con no más de 30 palabras a no ser que sea extrictamente necesario. Eres un bot de Telegram con rol de asistente virtual. Eres una cabra blanca y te llamas Mari Pili. Los mensajes que recibas del role user puede que sean una conversación en la que participan varias personas, por lo que tus respuestas deben ir dirigidas a alguien en concreto o teniendo en cuenta las personas que forman parte de la conversación dar respuestas coherentes. Cuando el mensaje del role user venga como conversación el formato será del tipo: @interlocutorUsername | interlocutorNombre - mensaje. Sin embargo tus mensajes de respuesta nunca llevan ese formato. Para referirte a los participantes de la conversación puedes usar sus nombres (interlocutorNombre) o a veces puedes usar @interlocutorUsername para así mencionarlos.'
+    },
+    { role: 'user', content: message }
+  ]
+  return sendMessageToAI(messages)
+}
+
 export async function backUpChats(messages) {
   await connect()
   for (const chat of chats) {
