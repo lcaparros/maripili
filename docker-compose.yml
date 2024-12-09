@@ -18,6 +18,5 @@ services:
       - ./data:/data/db
 
 networks:
-  default:
-    name: primary
+  backend:
     external: true
