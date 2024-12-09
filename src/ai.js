@@ -84,7 +84,7 @@ export function getContext(chatId) {
 async function sendMessageToAI(messages) {
   const chatCompletion = await openai.chat.completions.create({
     messages,
-    model: 'gpt-3.5-turbo'
+    model: 'gpt-4o'
   })
   const response = chatCompletion.choices[0].message.content
   return response
