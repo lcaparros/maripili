@@ -57,7 +57,7 @@ export async function scheduleTasks(bot) {
   )
 
   scheduleJob(
-    { month: 11, date: 10, hour: 11, minute: 0, second: 0 },
+    { month: 11, date: 9, hour: 11, minute: 0, second: 0 },
     async () => {
       await sendMessageToChats(
         async () =>
@@ -106,26 +106,34 @@ export async function scheduleTasks(bot) {
     'Happy New Year messages scheduled'
   )
 
-  scheduleJob({ hour: 9, minute: 0, second: 0 }, async () => {
-    await sendGifToChats(async () => await searchGif({ query: 'goat good morning' }), [ANGELA_CHAT_ID], 'Sending Angela good morning gif')
-    await sleepMs(1000)
-    logInfo(`Sending good morning message to ${ANGELA_CHAT_ID}`)
-    const mensajes = [
-      `Dame los buenos días de forma alegre, divertida y motivadora. Si hay algo interesante que se celebre o haya ocurrido en ${getCurrentDate()}`,
-      'Dame los buenos días de forma alegre, divertida y motivadora'
-    ]
-    const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)]
-    const message = await askAI(mensaje)
-    bot.sendMessage(ANGELA_CHAT_ID, message)
-  })
+  scheduleJob(
+    { hour: 9, minute: 0, second: 0 },
+    async () => {
+      await sendGifToChats(async () => await searchGif({ query: 'goat good morning' }), [ANGELA_CHAT_ID], 'Sending Angela good morning gif')
+      await sleepMs(1000)
+      logInfo(`Sending good morning message to ${ANGELA_CHAT_ID}`)
+      const mensajes = [
+        `Dame los buenos días de forma alegre, divertida y motivadora. Si hay algo interesante que se celebre o haya ocurrido en ${getCurrentDate()}`,
+        'Dame los buenos días de forma alegre, divertida y motivadora'
+      ]
+      const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)]
+      const message = await askAI(mensaje)
+      bot.sendMessage(ANGELA_CHAT_ID, message)
+    },
+    'Angela good morning messages schedule'
+  )
 
-  scheduleJob({ hour: 0, minute: 0, second: 0 }, async () => {
-    await sendGifToChats(async () => await searchGif({ query: 'goat good night' }), [ANGELA_CHAT_ID], 'Sending Angela good night gif')
-    await sleepMs(1000)
-    logInfo(`Sending good night message to ${ANGELA_CHAT_ID}`)
-    const message = await askAI('Dame las buenas noches de forma alegre y divertida')
-    bot.sendMessage(ANGELA_CHAT_ID, message)
-  })
+  scheduleJob(
+    { hour: 0, minute: 0, second: 0 },
+    async () => {
+      await sendGifToChats(async () => await searchGif({ query: 'goat good night' }), [ANGELA_CHAT_ID], 'Sending Angela good night gif')
+      await sleepMs(1000)
+      logInfo(`Sending good night message to ${ANGELA_CHAT_ID}`)
+      const message = await askAI('Dame las buenas noches de forma alegre y divertida')
+      bot.sendMessage(ANGELA_CHAT_ID, message)
+    },
+    'Angela good night messages schedule'
+  )
 
   if (LOG_LEVEL === 'DEBUG') {
     let list = schedule.scheduledJobs
